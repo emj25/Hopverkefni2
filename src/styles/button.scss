@@ -1,0 +1,15 @@
+.button {
+    background-color: $colgraymed;
+    color: $colblack;
+    border-radius: 0.5em;
+    border-style: none;
+    font-size: $fontsizeXL;
+    font-family: $ffhead;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    margin: 1.5rem 1rem;
+}
+
+.button:hover {
+    background-color: $colgraydark;
+}

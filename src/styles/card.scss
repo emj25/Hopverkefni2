@@ -1,0 +1,41 @@
+
+.card {
+    font-family: $ffhead;
+    font-weight: bold;
+    width: 100%;
+    padding: 0 $gutter;
+    margin-bottom: $gutter*2;
+}
+
+.card__main {
+    background-color: $colyellow;
+    color: $colblack;
+    text-transform: uppercase;
+    padding: 0 $gutter/2;
+}
+
+.card__main__header {
+    font-size: $fontsizeXXL;
+}
+
+.card__main__text{
+    font-size: $fontsizeXL;
+    padding: $gutter 0;
+}
+
+.card__main__footer{
+    font-size: $fontsizeL;
+}
+
+.card__footer {
+    background-color: $colgraymed;
+    padding: $gutter/2;
+}
+
+.card__footer__head {
+    font-size: $fontsizeM;
+}
+
+.card__footer__main {
+    font-size: $fontsizeXL;
+}
