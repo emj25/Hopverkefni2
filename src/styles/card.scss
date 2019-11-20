@@ -3,15 +3,26 @@
     font-family: $ffhead;
     font-weight: bold;
     width: 100%;
-    padding: 0 $gutter;
     margin-bottom: $gutter*2;
 }
 
+@media(min-width: 1100px){
+    .card{
+        width: 31%;
+        //margin-left: $gutter/2;
+        //margin-right: $gutter/2;
+        //height: $gutter*10;
+    }
+}
+
 .card__main {
+    display: flex;
+    flex-direction: column;
     background-color: $colyellow;
     color: $colblack;
     text-transform: uppercase;
     padding: 0 $gutter/2;
+    width: 100%;
 }
 
 .card__main__header {
@@ -30,6 +41,11 @@
 .card__footer {
     background-color: $colgraymed;
     padding: $gutter/2;
+    width: 100%;
+}
+
+.card__footer:hover {
+    background-color: $colgraydark;
 }
 
 .card__footer__head {

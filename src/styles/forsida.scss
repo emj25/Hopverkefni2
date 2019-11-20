@@ -1,12 +1,20 @@
+
 .body {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
 }
+
 .header {
     display: flex;
     align-items: center;
     flex-direction: column;
     width: 100%;
-    background-image: linear-gradient(rgba(255,255,255,0.4), rgba(255,255,255,0.4)), url('/img/header.jpg');
+    background-image: linear-gradient(rgba(255,255,255,0.4), rgba(255,255,255,0.4)), url('../img/header.jpg');
     background-size: cover;
 }
 
@@ -32,25 +40,34 @@
     align-items: center;
     flex-direction: column;
     font-family: $ffmain;
+    margin: $gutter;
+    width: 100%;
+    height: 100%;
 }
 
-.main__button {
+.main__buttons {
     display: flex;
     align-items: center;
+    padding: 0 $gutter;
 }
 
 .buttons {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
+    
 }
 
-.row {
+.list {
     display: flex;
-
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
 }
 
-.col {
-    display: flex;
+@media(min-width: 1100px){
+    .list{
+        justify-content: space-around;
+    }
 }
 
