@@ -9,8 +9,39 @@ export default class List {
     console.error(error);
   }
 
-  displayLectures(data) {
-    console.log(data);
+  createCardFooter(lecture) {
+    const cardFooter = document.createElement('div');
+    cardFooter.className = 'card__footer';
+    const category = document.createElement('div');
+    category.className = 'card__footer__head';
+    category.appendChild(document.createTextNode(lecture.category));
+    cardFooter.appendChild(category);
+    const title = document.createElement('div');
+    title.className = 'card__footer__main';
+    title.appendChild(document.createTextNode(lecture.title));
+    cardFooter.appendChild(title);
+    return cardFooter;
+  }
+
+
+  createLectureCard(lecture) {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.href = `lecture?slug=${lecture.slug}`;
+    const cardThumb = document.createElement('img');
+    cardThumb.className = 'cardMain';
+    cardThumb.src = lecture.thumbnail;
+    card.appendChild(cardThumb);
+    const cardFooter = this.createCardFooter(lecture);
+    card.appendChild(cardFooter);
+    return card;
+  }
+
+  displayLectures(lectures) {
+    lectures.forEach((lecture) => {
+      const card = this.createLectureCard(lecture);
+      this.container.appendChild(card);
+    });
   }
 
   load() {
@@ -19,14 +50,11 @@ export default class List {
     fetch(`${API_URL}`)
       .then((res) => {
         if (!res.ok) {
-          console.log(res);
           return null;
         }
-        console.log('OK');
-        console.log(res);
         return res.json();
       })
-      .then(data => this.displayLectures(data))
+      .then(data => this.displayLectures(data.lectures))
       .catch((error) => {
         this.displayError('Villa við að sækja gögn');
         console.error(error);
