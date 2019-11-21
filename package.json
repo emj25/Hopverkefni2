@@ -5,12 +5,13 @@
   "main": "index.js",
   "scripts": {
     "eslint": "eslint ./src/**/*.js",
-    "browser-sync": "browser-sync start --server --files index.html fyrirlestur.html ./dist/styles.css ./dist/bundle.js",
+    "browser-sync": "browser-sync start --server --files index.html fyrirlestur.html ./dist/styles.css ./dist/script.js",
     "stylelint": "stylelint ./src/styles/**/*.scss --syntax scss",
     "sass": "node-sass --source-map-embed ./src/styles/styles.scss ./dist/styles.css",
     "sass-watch": "node-sass --source-map-embed --watch --recursive src/styles/styles.scss ./dist/styles.css",
     "test": "npm-run-all eslint stylelint",
-    "dev": "npm-run-all --parallel sass sass-watch browser-sync"
+    "dev": "npm-run-all --parallel sass sass-watch browser-sync",
+    "rollup": "rollup src/index.js --file dist/script.js --format umd --name \"script\""
   },
   "keywords": [],
   "author": "",
