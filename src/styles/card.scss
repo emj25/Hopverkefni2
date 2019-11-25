@@ -19,10 +19,13 @@
   }
 }
 
+.cardMain{
+  height: $gutter*12;
+}
+
 .card__footer {
   width: 100%;
   padding: $gutter/2;
-  align-self: flex-end;
 }
 
 .card__footer__head {
