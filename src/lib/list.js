@@ -32,6 +32,10 @@ export default class List {
     cardThumb.className = 'cardMain';
     cardThumb.src = lecture.thumbnail;
     card.appendChild(cardThumb);
+    const a = document.createElement('a');
+    a.appendChild(cardThumb);
+    a.href = 'fyrirlestur.html?html-sagan';
+    card.appendChild(a);
     const cardFooter = this.createCardFooter(lecture);
     card.appendChild(cardFooter);
     return card;
@@ -45,7 +49,7 @@ export default class List {
   }
 
   load() {
-    const API_URL = 'https://notendur.hi.is/bog26/vefforritun/hopverkefni2/lectures.json?slug=html';
+    const API_URL = '../lectures.json?slug=html';
     empty(this.container);
     fetch(`${API_URL}`)
       .then((res) => {
