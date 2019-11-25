@@ -31,6 +31,7 @@ export default class List {
     const cardThumb = document.createElement('img');
     cardThumb.className = 'cardMain';
     cardThumb.src = lecture.thumbnail;
+    cardThumb.setAttribute('alt', '');
     card.appendChild(cardThumb);
     const a = document.createElement('a');
     a.appendChild(cardThumb);
