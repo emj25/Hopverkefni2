@@ -1,4 +1,11 @@
 
+.main__fyrirlestur {
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   .header__fyrirlestur {
     display: flex;
     align-items: center;
@@ -18,8 +25,59 @@
   
   .header__text--main__fyrirlestur {
     font-size: 3rem;
-    font-family: "Roboto Mono", "Courier New", monospace;
+    font-family: $ffhead;
     font-weight: bold;
     margin-top: 0rem;
     margin-bottom: 5rem; }
+
+  .lecture {
+    font-family: $ffmain;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: $gutter 0;
+  }
+
+  .heading {
+    font-family: $ffhead;
+    font-size: $fontsizeXL;
+    font-weight: bold;
+    margin: $gutter 0;
+  }
+
+  .quote {
+    margin: $gutter 0;
+    background-color: $colgraylight;
+    padding: 0 $gutter;
+    width: 100%;
+  }
   
+  .text, .youtube, .code, .list {
+    margin: $gutter 0;
+  }
+
+  .fyrirlestur__footer {
+    font-family: $ffhead;
+  }
+  
+  .finish {
+    margin: $gutter 0;
+    list-style: none;
+  }
+
+  .back {
+    margin: $gutter 0;
+    list-style: none;
+  }
+
+  .item--done {
+    list-style: circle;
+    color: $colgreenlight;
+  }
