@@ -29,16 +29,15 @@ export default class List {
     card.className = 'card';
     card.href = `lecture?slug=${lecture.slug}`;
     const cardThumb = document.createElement('img');
-    cardThumb.className = 'cardMain';
+    cardThumb.className = 'card__main';
     cardThumb.src = lecture.thumbnail;
     cardThumb.setAttribute('alt', '');
-    card.appendChild(cardThumb);
+    const cardFooter = this.createCardFooter(lecture);
     const a = document.createElement('a');
     a.appendChild(cardThumb);
-    a.href = 'fyrirlestur.html?html-sagan';
+    a.appendChild(cardFooter);
+    a.href = 'fyrirlestur.html?' + lecture.slug;
     card.appendChild(a);
-    const cardFooter = this.createCardFooter(lecture);
-    card.appendChild(cardFooter);
     return card;
   }
 
