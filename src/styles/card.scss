@@ -1,5 +1,15 @@
 
 .card {
+  background-color: $colgraymed; 
+  margin-bottom: $gutter*2;
+  font-weight: bold;
+}
+
+.card:hover {
+  background-color: $colgraydark;
+}
+
+.a {
   display: flex;
   font-family: $ffhead;
   width: 100%;
@@ -9,8 +19,15 @@
   background-color: $colgraymed;
 }
 
-.card:hover {
-  background-color: $colgraydark;
+a:link {
+  color: $colblack;
+  text-decoration: none;
+
+}
+
+a:visited {
+  color: $colblack;
+  text-decoration: none;
 }
 
 @media (min-width: 1100px) {
@@ -19,7 +36,7 @@
   }
 }
 
-.cardMain{
+.card__main{
   height: $gutter*12;
 }
 
