@@ -40,8 +40,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const lect = document.createElement('div');
         lect.classList.add(content[i].type);
         lect.setAttribute('type', content[i].type);
-        lect.innerText = content[i].data;
-        console.log(content[i].data);
+        const textArr = content[i].data.split('\n');
+        for (let k = 0; k < textArr.length; k += 1) {
+          const textPar = document.createElement('p');
+          textPar.classList.add('text__para');
+          textPar.innerText = textArr[k];
+          lect.appendChild(textPar);
+        }
+        
         lectEl.appendChild(lect);
       }
 
@@ -89,30 +95,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const lect = document.createElement('ul');
         lect.classList.add(content[i].type);
         lect.setAttribute('type', content[i].type);
-        
-        const str = content[i].data;
-        console.log(str);
-        lect.textContent = str;
+        const arr = content[i].data;
         lectEl.appendChild(lect);
-        /*
-        const arr = str.split(',');
-        console.log(arr);
         for (let k = 0; k < arr.length; k += 1) {
           const listItem = document.createElement('li');
           listItem.classList.add('listItem');
-          listItem.textContent = arr[i];
+          listItem.textContent = arr[k];
           lect.appendChild(listItem);
         }
-        */
       }
 
       if (content[i].type === 'code') {
         const lectEl = document.getElementsByClassName('lecture')[0];
-        const lect = document.createElement('div');
+        const lect = document.createElement('pre');
         lect.classList.add(content[i].type);
         lect.setAttribute('type', content[i].type);
         lect.innerText = content[i].data;
-        console.log(content[i].data);
         lectEl.appendChild(lect);
       }
     }
@@ -120,8 +118,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (compStatus === 'complete') {
       document.querySelector('.finish').classList.toggle('item--done');
     }
-
-
   }
 
   function endLecture(e) {
@@ -136,12 +132,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function markedLecture (slug, string) {
-    window.localStorage.setItem(slug, string);
-  }
-
-
-
   function load() {
     fetch('./lectures.json')
       .then((res) => {
@@ -155,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const sl = new URLSearchParams(window.location.search);
         let slod = sl.toString();
         slod = slod.substring(0, slod.length - 1);
-        for (let i = 0; i < 13; i += 1) {
+        for (let i = 0; i < data.lectures.length; i += 1) {
           if (slod === (data.lectures[i].slug)) n = i;
         }
         displayHeader(data.lectures[n].title, data.lectures[n].category);
@@ -228,7 +218,6 @@ document.addEventListener('DOMContentLoaded', () => {
     e.target.classList.toggle('button--selected');
     filterCards();
   }
-
 
 
   if (isLecturePage) {
