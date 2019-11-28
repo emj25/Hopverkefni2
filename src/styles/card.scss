@@ -53,3 +53,7 @@ a:visited {
 .card__footer__main {
   font-size: $fontsizeXL;
 }
+
+.card--hidden {
+  display: none;
+}
