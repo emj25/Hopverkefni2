@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let showHTML = false;
   let showCSS = false;
   let showJavaScript = false;
-  
+
   function displayError(error) {
     console.error(error);
   }
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     headEl.append(mainHead);
   }
 
-  function displayLecture(content) {
+  function displayLecture(content, slug) {
     for (let i = 0; i < content.length; i += 1) {
       if (content[i].type === 'youtube') {
         const lectEl = document.getElementsByClassName('lecture')[0];
@@ -116,11 +116,31 @@ document.addEventListener('DOMContentLoaded', () => {
         lectEl.appendChild(lect);
       }
     }
+    const compStatus = window.localStorage.getItem(slug);
+    if (compStatus === 'complete') {
+      document.querySelector('.finish').classList.toggle('item--done');
+    }
+
+
   }
 
   function endLecture(e) {
-    e.target.parentNode.classList.toggle('item--done');
+    e.target.classList.toggle('item--done');
+    const sl = new URLSearchParams(window.location.search);
+    let slod = sl.toString();
+    slod = slod.substr(0, slod.length - 1);
+    if (window.localStorage.getItem(slod) === 'complete') {
+      window.localStorage.setItem(slod, 'incomplete');
+    } else {
+      window.localStorage.setItem(slod, 'complete');
+    }
   }
+
+  function markedLecture (slug, string) {
+    window.localStorage.setItem(slug, string);
+  }
+
+
 
   function load() {
     fetch('./lectures.json')
@@ -133,17 +153,50 @@ document.addEventListener('DOMContentLoaded', () => {
       .then((data) => {
         let n = 0;
         const sl = new URLSearchParams(window.location.search);
-        const slod = sl.toString();
+        let slod = sl.toString();
+        slod = slod.substring(0, slod.length - 1);
         for (let i = 0; i < 13; i += 1) {
-          if (slod === (data.lectures[i].slug + "=")) n = i;
+          if (slod === (data.lectures[i].slug)) n = i;
         }
         displayHeader(data.lectures[n].title, data.lectures[n].category);
-        displayLecture(data.lectures[n].content);
+        displayLecture(data.lectures[n].content, slod);
       })
       .catch((error) => {
         document.displayError('Villa við að sækja gögn');
         console.error(error);
       });
+  }
+
+  function filterCards() {
+    // show All
+    const hiddencards = document.querySelectorAll('.card--hidden');
+    if (hiddencards) {
+      hiddencards.forEach((card) => {
+        card.classList.toggle('card--hidden');
+      });
+    }
+    if (!(!showHTML && !showCSS && !showJavaScript)) {
+      // hide All
+      document.querySelectorAll('.card').forEach((card) => {
+        card.classList.toggle('card--hidden');
+      });
+      // show types
+      if (showHTML) {
+        document.querySelectorAll('.card--html').forEach((card) => {
+          card.classList.toggle('card--hidden');
+        });
+      }
+      if (showCSS) {
+        document.querySelectorAll('.card--css').forEach((card) => {
+          card.classList.toggle('card--hidden');
+        });
+      }
+      if (showJavaScript) {
+        document.querySelectorAll('.card--javascript').forEach((card) => {
+          card.classList.toggle('card--hidden');
+        });
+      }
+    }
   }
 
   function toggleHTML(e) {
