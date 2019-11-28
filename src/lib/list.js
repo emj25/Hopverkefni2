@@ -20,13 +20,14 @@ export default class List {
     title.className = 'card__footer__main';
     title.appendChild(document.createTextNode(lecture.title));
     cardFooter.appendChild(title);
+    // TODO add image for lecture completion (Checkmark/X)
     return cardFooter;
   }
 
 
   createLectureCard(lecture) {
     const card = document.createElement('div');
-    card.className = 'card';
+    card.className = `card card--${lecture.category}`;
     card.href = `lecture?slug=${lecture.slug}`;
     const cardThumb = document.createElement('img');
     cardThumb.className = 'card__main';
@@ -36,7 +37,7 @@ export default class List {
     const a = document.createElement('a');
     a.appendChild(cardThumb);
     a.appendChild(cardFooter);
-    a.href = 'fyrirlestur.html?' + lecture.slug;
+    a.href = `fyrirlestur.html?${lecture.slug}`;
     card.appendChild(a);
     return card;
   }

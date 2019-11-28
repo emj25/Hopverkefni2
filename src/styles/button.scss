@@ -13,3 +13,11 @@
 .button:hover {
   background-color: $colgraydark;
 }
+
+.button--selected {
+  background-color: $colgreenlight;
+}
+
+.button--selected:hover {
+  background-color: $colgreendark;
+}

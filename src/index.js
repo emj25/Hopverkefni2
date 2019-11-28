@@ -3,6 +3,9 @@ import List from './lib/list';
 document.addEventListener('DOMContentLoaded', () => {
   const page = document.querySelector('body');
   const isLecturePage = page.classList.contains('lecture-page');
+  let showHTML = false;
+  let showCSS = false;
+  let showJavaScript = false;
 
   function displayError(error) {
     console.error(error);
@@ -30,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
         lect.href = content[i].data;
         lect.classList.add(content[i].type);
         lect.setAttribute('type', content[i].type);
-        lect.textContent = "Myndband";
+        lect.textContent = 'Myndband';
         lectEl.appendChild(lect);
       }
 
@@ -42,7 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
         lect.textContent = content[i].data;
         lectEl.appendChild(lect);
       }
-      
       if (content[i].type === 'image') {
         const lectEl = document.getElementsByClassName('lecture')[0];
         const contain = document.createElement('div');
@@ -119,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const sl = new URLSearchParams(window.location.search);
         const slod = sl.toString();
         for (let i = 0; i < 13; i += 1) {
-          if (slod === (data.lectures[i].slug + "=")) n = i;
+          if (slod === `${data.lectures[i].slug}=`) n = i;
         }
         displayHeader(data.lectures[n].title, data.lectures[n].category);
         displayLecture(data.lectures[n].content);
@@ -130,11 +132,73 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   }
 
+  function filterCards() {
+    // show All
+    document.querySelector('.card--hidden').forEach((card) => {
+      card.toggle('card--hidden');
+    });
+    if (!(!showHTML && !showCSS && !showJavaScript)) {
+      // hide All
+      document.querySelector('.card').forEach((card) => {
+        card.toggle('card--hidden');
+      });
+      // show types
+      if (showHTML) {
+        document.querySelector('.card--html').forEach((card) => {
+          card.toggle('card--hidden');
+        });
+      }
+      if (showCSS) {
+        document.querySelector('.card--css').forEach((card) => {
+          card.toggle('card--hidden');
+        });
+      }
+      if (showJavaScript) {
+        document.querySelector('.card--javascript').forEach((card) => {
+          card.toggle('card--hidden');
+        });
+      }
+    }
+  }
+
+  function toggleHTML(e) {
+    if (showHTML) {
+      showHTML = false;
+    } else {
+      showHTML = true;
+    }
+    e.target.classList.toggle('button--selected');
+    filterCards();
+  }
+
+  function toggleCSS(e) {
+    if (showCSS) {
+      showCSS = false;
+    } else {
+      showCSS = true;
+    }
+    e.target.classList.toggle('button--selected');
+    filterCards();
+  }
+
+  function toggleJavaScript(e) {
+    if (showJavaScript) {
+      showJavaScript = false;
+    } else {
+      showJavaScript = true;
+    }
+    e.target.classList.toggle('button--selected');
+    filterCards();
+  }
+
   if (isLecturePage) {
     load();
     const check = document.querySelector('.finish');
     check.addEventListener('click', endLecture);
   } else {
+    document.querySelector('.htmlButton').addEventListener('click', toggleHTML);
+    document.querySelector('.cssButton').addEventListener('click', toggleCSS);
+    document.querySelector('.javascriptButton').addEventListener('click', toggleJavaScript);
     const list = new List();
     list.load();
   }
