@@ -3,9 +3,6 @@ import List from './lib/list';
 document.addEventListener('DOMContentLoaded', () => {
   const page = document.querySelector('body');
   const isLecturePage = page.classList.contains('lecture-page');
-  let showHTML = false;
-  let showCSS = false;
-  let showJavaScript = false;
 
   function displayError(error) {
     console.error(error);
@@ -25,15 +22,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function displayLecture(content) {
     for (let i = 0; i < content.length; i += 1) {
-      console.log(content[i].type);
-      console.log(content[i].data);
       if (content[i].type === 'youtube') {
         const lectEl = document.getElementsByClassName('lecture')[0];
-        const lect = document.createElement('a');
-        lect.href = content[i].data;
+        const lect = document.createElement('iframe');
         lect.classList.add(content[i].type);
-        lect.setAttribute('type', content[i].type);
-        lect.textContent = 'Myndband';
+        lect.src = content[i].data;
+        lect.setAttribute('frameborder', '0');
+        lect.setAttribute('allowfullscreen', '0');
         lectEl.appendChild(lect);
       }
 
@@ -42,9 +37,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const lect = document.createElement('div');
         lect.classList.add(content[i].type);
         lect.setAttribute('type', content[i].type);
-        lect.textContent = content[i].data;
+        lect.innerText = content[i].data;
+        console.log(content[i].data);
         lectEl.appendChild(lect);
       }
+
       if (content[i].type === 'image') {
         const lectEl = document.getElementsByClassName('lecture')[0];
         const contain = document.createElement('div');
@@ -54,25 +51,25 @@ document.addEventListener('DOMContentLoaded', () => {
         lect.classList.add(content[i].type);
         lect.setAttribute('src', content[i].data);
         contain.appendChild(lect);
-        const capt = document.createElement('figcaption');
-        capt.textContent = content[i].caption;
+        const capt = document.createElement('div');
+        capt.classList.add('figCaption');
+        capt.innerText = content[i].caption;
         contain.appendChild(capt);
       }
 
       if (content[i].type === 'quote') {
         const lectEl = document.getElementsByClassName('lecture')[0];
         const contain = document.createElement('div');
-        contain.classList.add('quote');
+        contain.classList.add(content[i].type);
         lectEl.append(contain);
         const lect = document.createElement('div');
         lect.classList.add(content[i].type);
-        lect.textContent = content[i].data;
+        lect.innerText = content[i].data;
         contain.appendChild(lect);
-        /*
-        const att = document.createElement('div');
-        att.textContent = content[i].attribute;
-        contain.textContent(att);
-        */
+        const attri = document.createElement('div');
+        attri.classList.add(content[i].type);
+        attri.textContent = content[i].attribute;
+        contain.appendChild(attri);
       }
 
       if (content[i].type === 'heading') {
@@ -89,8 +86,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const lect = document.createElement('ul');
         lect.classList.add(content[i].type);
         lect.setAttribute('type', content[i].type);
-        lect.textContent = content[i].data;
+        
+        const str = content[i].data;
+        console.log(str);
+        lect.textContent = str;
         lectEl.appendChild(lect);
+        /*
+        const arr = str.split(',');
+        console.log(arr);
+        for (let k = 0; k < arr.length; k += 1) {
+          const listItem = document.createElement('li');
+          listItem.classList.add('listItem');
+          listItem.textContent = arr[i];
+          lect.appendChild(listItem);
+        }
+        */
       }
 
       if (content[i].type === 'code') {
@@ -98,7 +108,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const lect = document.createElement('div');
         lect.classList.add(content[i].type);
         lect.setAttribute('type', content[i].type);
-        lect.textContent = content[i].data;
+        lect.innerText = content[i].data;
+        console.log(content[i].data);
         lectEl.appendChild(lect);
       }
     }
@@ -121,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const sl = new URLSearchParams(window.location.search);
         const slod = sl.toString();
         for (let i = 0; i < 13; i += 1) {
-          if (slod === `${data.lectures[i].slug}=`) n = i;
+          if (slod === (data.lectures[i].slug + "=")) n = i;
         }
         displayHeader(data.lectures[n].title, data.lectures[n].category);
         displayLecture(data.lectures[n].content);
@@ -130,35 +141,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.displayError('Villa við að sækja gögn');
         console.error(error);
       });
-  }
-
-  function filterCards() {
-    // show All
-    document.querySelector('.card--hidden').forEach((card) => {
-      card.toggle('card--hidden');
-    });
-    if (!(!showHTML && !showCSS && !showJavaScript)) {
-      // hide All
-      document.querySelector('.card').forEach((card) => {
-        card.toggle('card--hidden');
-      });
-      // show types
-      if (showHTML) {
-        document.querySelector('.card--html').forEach((card) => {
-          card.toggle('card--hidden');
-        });
-      }
-      if (showCSS) {
-        document.querySelector('.card--css').forEach((card) => {
-          card.toggle('card--hidden');
-        });
-      }
-      if (showJavaScript) {
-        document.querySelector('.card--javascript').forEach((card) => {
-          card.toggle('card--hidden');
-        });
-      }
-    }
   }
 
   function toggleHTML(e) {
@@ -190,6 +172,8 @@ document.addEventListener('DOMContentLoaded', () => {
     e.target.classList.toggle('button--selected');
     filterCards();
   }
+
+
 
   if (isLecturePage) {
     load();
