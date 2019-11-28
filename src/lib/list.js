@@ -5,10 +5,6 @@ export default class List {
     this.container = document.querySelector('.list');
   }
 
-  displayError(error) {
-    console.error(error);
-  }
-
   createCardFooter(lecture) {
     const cardFooter = document.createElement('div');
     cardFooter.className = 'card__footer';
@@ -20,7 +16,12 @@ export default class List {
     title.className = 'card__footer__main';
     title.appendChild(document.createTextNode(lecture.title));
     cardFooter.appendChild(title);
-    // TODO add image for lecture completion (Checkmark/X)
+    const completion = window.localStorage.getItem(lecture.slug);
+    if (completion === 'complete') {
+      const check = document.createElement('p');
+      check.appendChild(document.createTextNode('✓'));
+      cardFooter.appendChild(check);
+    }
     return cardFooter;
   }
 
