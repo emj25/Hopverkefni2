@@ -51,7 +51,7 @@ export default class List {
   }
 
   load() {
-    const API_URL = '../lectures.json?slug=html';
+    const API_URL = './lectures.json?slug=html';
     empty(this.container);
     fetch(`${API_URL}`)
       .then((res) => {

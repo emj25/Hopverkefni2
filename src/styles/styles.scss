@@ -24,15 +24,10 @@ img { /* stylelint-disable-line */
   max-width: 100%;
 }
 
-@import 'forsida.scss';
+@import "forsida.scss";
 
-@import 'button.scss';
+@import "button.scss";
 
-@import 'card.scss';
+@import "card.scss";
 
-@import 'fyrirlestur.scss';
-
-
-
-
-// TODO import
+@import "fyrirlestur.scss";
