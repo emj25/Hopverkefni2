@@ -1,167 +1,70 @@
-# Hópverkefni 2
+# Upplýsingar um hvernig keyra skuli verkefnið:
+1. Clone-a verkefnið niður af github (eða sækja það hvernig sem þú vilt)
+2. Install NodeJS ef þú er ekki með það. NodeJS má sækja hér: https://nodejs.org/en/
+3. Keyra NPM INSTALL í möppunni með verkefninu
+4. Keyra NPM RUN ROLLUP til að búa til script.js í dist
+5. Keyra NPM RUN SASS til að búa til styles.css í dist
+6. Keyra NPM RUN DEV til að keyra verkefnið (Athuga að þetta ætti að gera skref 4 og 5 sjálfkrafa)
+7. Vista eitthvað *.scss skjal til þýða scss skrár í css skrá til að keyra rollup babel og sass ef það gerist ekki sjálfkrafa og þú slepptir skrefum 4 og 5
 
-Verkefnið felst í því að smíða prótótýpu af fyrirlestravef fyrir vefforritun. Gefin eru gögn sem unnin eru uppúr námsefni vetrarins.
+# Lýsing á uppsetningu verkefnis og skipulag CSS:
+Allar síður eru í rót þ.m.t. index.html sem stýrir forsíðunni.
 
-Gefnar eru [fyrirmyndir](utlit/) í `500px` og `1500px` án grindar ásamt `1500px` með grind. Allt efni skal skalast snyrtilega á milli.
+Öllu útliti á síðunum er stýrt með scss-skrám. Sumar eiga við eina html-síðu en aðrar eru notaðar víðar.  Styles.scss sækir upplýsingar í þessar skrár með import-skipun.  Loks er sú skrá þýdd yfir í styles.css skrána með sass. Í styles.css sem er geymd í dist sækja html-skrárnar allar upplýsingar um útlit. 
+Aðal skriptann index.js er geymd í src. Aðrar Skriptur eru geymdar í src/lib. Skriptur eru þýddar með rollup og transpile-aðar með babel í bundle.js sem er geymd í dist. 
+	
+# Skipulag á möppum og skrám
+Mappa [src]
+- Mappa [lib]
+  - Inniheldur .js skrár
+  - Mappa [styles] 
+    - scss skrár sem eru notaðar til að búa til styles css með sass keyrslu
 
-## Almennt
+Mappa [img]
+- inniheldur myndefni fyrir síður
 
-Gögn eru gefin í `lectures.json` sem sækja skal með _ajax_ virkni. Keyra verður verkefnið með `browser-sync` til að það virki.
+Mappa [dist]
+- inniheldur bundle.js og styles.css sem eru búnar til með rollup og babel, og sass
 
-Efni síðu skal ekki vera breiðara en `1200px`. Litir og myndir í haus skulu fylla út í allt lárétt pláss. Yfir myndum er 60% gegnsær hvítur litur. Myndir fyrir hvern fyrirlestur eru skilgreindir í `json` skrá.
+index.html
+- forsíða heimasíðu
 
-Grunn leturstærð er 16px og fylgja allar aðrar leturgerðir eftirfarandi skala: `16 24 32 48`.
+fyrirlestur.html
+- síða fyrir einstaka fyrirlestra
 
-Litapalletta fyrir vef er `#000`, `#999`, `#aaa`, `#ccc`, `#2d2`, `#1a1`, `#fcffd2` og `#cc9694`.
+styles.css
+- css skrá sem verður til þýðingu á styles.scss
 
-Letur fyrir meginmál er Lora, Times New Roman eða serif letur.
-Letur fyrir fyrirsagnir er Roboto Mono, Courier New eða monospace.
+styles.scss
+- safn allra skilgreininga í öðrum scss skrám
 
-Flest allt er sett upp í 12 dálka grind með `20px` gutter.
+package-lock.json
+- inniheldur upplýsingar fyrir NodyJS til að setja upp öll JavaScript modules sem við notum til hagræðingar við vinnslu verkefnisins.
 
-Öll bil eru hálft, heilt, tvöfalt eða þrefalt margfeldi af gutter. Hægt er að nota reglustiku tól (t.d. http://www.arulerforwindows.com/ eða http://www.pascal.com/software/freeruler/) til að finna nákvæmar stærðir en mestu skiptir að lausn svipi til en sé ekki nákvæmlega eins og fyrirmynd.
+package.json
+- "lint-css": lintar css skjalið
+- "lint-scss": linta scss skjöl (athugar bara skjöl sem styles.scss improtar)
+- "dev":  Keyrir Browser Sync og Sass,
+- "browser-sync": Fylgist með breytingum á css og html skrám svo ekki þurfi að refresha broser
+- "sass": fylgist með breytingum á scss skrám og uppfærir css skjál þegar þær eru gerðar (og scss skrár vistaðar.
 
-Allar hreyfingar gerast á `300ms` með `ease-in-out` hröðunarfalli. Hreyfingar eru þegar svimað er yfir fyrirlestri í lista og síunar tökkum.
 
-## Forsíða
 
-Forsíða inniheldur lista af öllum fyrirlestrum. Fram kemur hvort búið sé að klára fyrirlestur eða ekki. Nota skal `✓` til að tákna að fyrirlestri séð lokið, sjá að neðan hvernig virkni er.
+# Þeir sum unnu verkefnið eru:
+Bóas Guðjónsson
+Dæmahópur: 3
+kt: 070392-2839
+bog26@hi.is
 
-Fyrir ofan lista skulu vera þrír takkar fyrir hvern af flokkunum: `HTML`, `CSS` og `JavaScript`. Í byrjun er engin takki virkur en um leið og takki er virkur skal aðeins sýna fyrirlestra í þeim flokk og takki litaður með `#2d2`. Ef fleiri takkar eru virkjaðir skal einnig sína þá fyrirlestra. Ef allir takkar eru virkir sést það sama og ef allir eru óvirkir—allir fyrirlestrar.
+Einar Már Júlíusson
+Dæmahópur:  2
+kt: 271066-8649
+emj25@hi.is
 
-Þegar smellt er á fyrirlestur er farið yfir á `fyrirlestur.html?slug=<slug>` þar sem `<slug>` er _slug_ fyrir fyrirlesturinn, t.d. `fyrirlestur.html?slug=html-sagan`. Hægt er að nota `URLSearchParams` og `window.location.search` til að vita hvaða fyrirlestur átt er við á `fyrirlestur.html` síðu.
+Ósvaldur Knudsen
+Dæmahópur: 1
+kt: 030174-3999
+okk3@hi.is 
 
-## Fyrirlestur
 
-Fyrir hvern fyrirlestur skal birta haus og allt efni fyrirlesturs á eftir honum. Í haus kemur fram flokkur og titill.
-
-Efni fyrirlesturs er geymt í fylki og skal birta það í sömu röð og það er skilgreint. Útbúa þarf birtingu fyrir hverja einingu eftir útliti.
-
-Neðst er takki til að merkja fyrirlestur kláraðann og hlekkur til að fara til baka.
-
-### Kláraður fyrirlestur
-
-Ef fyrirlestur er merktur kláraður skal sýna `✓ Fyrirlestur kláraður` í `#2d2`. Annars `Klára fyrirlestur`. Þegar fyrirlestur er kláraður skal vista upplýsingar um það í `localStorage` og birta í lista og á fyrirlestra síðu.
-
-Nota skal `slug` sem auðkenni yfir kláraða fyrirlestra.
-
-## Fyrirlestragögn
-
-`lectures.json` inniheldur fylki af fyrirlestrum sem birta skal. Hver fyrirlestur getur haft:
-
-* `slug`, notað til að hlekkja á fyrirlestur
-* `title`, titill fyrirlesturs
-* `category`, flokkur fyrirlesturs
-* `image`, mynd í hausi fyrirlesturs, má sleppa, þá skal birta gráan lit í staðinn
-* `thumbnail`, mynd á yfirliti fyrirlestra, má sleppa, þá skal birta gráan lit í staðinn
-* `content`, fylki af efni fyrirlesturs
-
-Fyrir efni fyrirlesturs er efni alltaf með:
-
-* `type`, gerð efnis
-* `data`, gögn efnis
-
-þar sem `type` getur verið:
-
-* `youtube`, `data` inniheldur hlekk á youtube myndband. Innifela skal mynband með `<iframe src="<URL>" frameborder="0" allowfullscreen="0"></iframe>`
-* `text`, `data` inniheldur gögn þar sem `\n` merkir á milli málsgreina, þ.e.a.s. texta skal birta innan `<p>`, skipt á `\n`
-* `quote`, `data` inniheldur tilvitnun, aukalega getur verið `attribute` með þeim sem vitnað er í
-* `image`, `data` inniheldur slóð á mynd, aukalega getur verið `caption` með texta með mynd
-* `heading`, `data` inniheldur fyrirsögn
-* `list`, `data` inniheldur fylki af textum í lista
-* `code`, `data` inniheldur kóða þar sem bil og nýjar línur skipta máli
-
-Athugið að meira efni mun bætast við það sem gefið er í byrjun. Virkni ætti að ráða við hvaða efni sem er í hvaða formi sem er, svo lengi sem það fylgir reglum að ofan.
-
-## Hópavinna
-
-Verkefnið skal unnið í hóp með þremur einstaklingum. Hafið samband við kennara ef ekki er mögulegt að vinna í hóp.
-
-Notast skal við Git og GitHub. Engar zip skrár með kóða ættu að ganga á milli í hópavinnu, heldur á að „committa“ allan kóða og vinna gegnum Git.
-
-## Lýsing á verkefni
-
-`README.md` skrá skal vera í rót verkefnis og innihalda:
-
-* Upplýsingar um hvernig keyra skuli verkefnið
-* Lýsingu á uppsetningu verkefnis, hvernig því er skipt í möppur, hvernig CSS og JavaScript er skipulagt og fleira sem á við
-* Upplýsingar um alla sem unnu verkefni
-* Leyfilegt er að halda eftir þessari verkefnalýsingu en hún skal þá koma _á eftir_ ykkar lýsingu
-
-## Tæki og tól
-
-Eftirfarandi er sett upp í verkefni:
-
-* `.stylelintrc` með upplýsingum um hvernig stylelint eigi að haga sér. Setja þarf upp `stylelint-config-primer` pakkann
-* `.eslintrc` skrá sem segir til um hvernig lint fyrir JavaScript skrár skuli háttað
-* `.gitignore` sem hunsar algengar skrár, [sjá nánar](https://help.github.com/ignore-files/)
-  - Allt undir `./dist` hunsað sem þýðir að það verður _ekki_ checkað inn. Það er gert vegna þess að þær skrár eru útbúnar af tólum þegar verkefni er keyrt.
-* `.gitattributes` sem kemur í veg fyrir ósamræmi sem geta komið upp þegar unnið er á milli stýrikerfa
-* `.editorconfig` sem samræmir notkun á tabs og spaces, bilum [og fleira](https://editorconfig.org/)
-* `grid.css` til að sjá grid sem fyrirmynd er unnin eftir
-* `src/` mappa með
-  - `styles/` undirmöppu með `styles.scss` grunni
-  - `lib/` undirmappa sem gæti innihaldið JavaScript kóða auk tillögu að grunni fyrir virkni á forsíðu
-  - `index.js` skrá sem vísar í `lib/`
-* `dist/` mappa sem ætti að innihalda _þýddar_ sass og JavaScript skrár
-* `img/` með öllum myndum sem þarf í verkefnið
-* `package.json` hefur uppsett script ásamt dependencies
-  - `eslint` til að keyra eslint
-  - `stylelint` til að keyra stylelint
-  - `test` til að keyra bæði `eslint` og `stylelint`
-  - `browser-sync` til að keyra verkefni, bæta þarf við skrám sem vaktaðar eru
-  - `sass` til að keyra fyrstu þýðingu
-  - `sass-watch` til að fylgjast með sass skrám og þýða
-  - `dev` til að keyra `sass` og `browser-sync`
-
-Setja þarf upp
-
-* `rollup` til að pakka saman JavaScript kóða
-* `babel` til að _transpila_ kóða
-
-og bæta við í tól að ofan.
-
-## Mat
-
-* 30% - `README` eftir forskrift, tæki og tól uppsett. Snyrtilegt, gilt (skv. eslint) JavaScript. Snyrtilegt, gilt (skv. stylelint) CSS/Sass, gilt og aðgengilegt HTML. Git notað
-* 30% – Yfirlitssíða með síu
-* 30% – Fyrirlestrarsíða útfærð með efni
-* 10% – Hægt að skrá að fyrirlestur sér kláraður
-
-## Sett fyrir
-
-Verkefni sett fyrir á Uglu föstudaginn 9. nóvember 2018.
-
-## Skil
-
-Einn aðili úr hóp skal skila fyrir hönd allra og skila skal undir „Verkefni og hlutaprófa“ á Uglu í seinasta lagi fyrir lok dags föstudaginn 29. nóvember 2019, seinustu dæmatímar eru þann fimmtudag.
-
-Skil skulu innihalda:
-
-* Nöfn allra í hóp ásamt notendanafni
-* Slóð á GitHub repo fyrir verkefni, og **öllum** dæmatímakennurum skal hafa verið boðið í repo ([sjá leiðbeiningar](https://help.github.com/articles/inviting-collaborators-to-a-personal-repository/)). Notendanöfn þeirra eru `anz1e`, `gunnnnii`, `magdadianaa`, `OlafurjonHI` og `Wolfcoder13`.
-* Slóð á verkefnið keyrandi á vefnum
-
-## Einkunn
-
-Sett verða fyrir tíu minni verkefni þar sem átta bestu gilda 3,5% hvert, samtals 28% af lokaeinkunn.
-
-Sett verða fyrir tvö stærri verkefni þar sem hvort um sig gildir 11%, samtals 22% af lokaeinkunn.
-
-## Myndir
-
-Myndir frá:
-
-* https://unsplash.com/photos/xekxE_VR0Ec
-* https://unsplash.com/photos/C4G18Paw0d4
-* https://unsplash.com/photos/iar-afB0QQw
-
----
-
-> Útgáfa 0.2
-
-### Útgáfusaga
-
-| Útgáfa | Lýsing                                |
-|--------|---------------------------------------|
-| 0.1    | Fyrsta útgáfa                         |
+> Útgáfa 0.1

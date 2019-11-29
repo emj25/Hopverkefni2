@@ -29,7 +29,6 @@ export default class List {
     return cardFooterWrapper;
   }
 
-
   createLectureCard(lecture) {
     const card = document.createElement('div');
     card.className = `card card--${lecture.category}`;
@@ -42,7 +41,7 @@ export default class List {
     const a = document.createElement('a');
     a.appendChild(cardThumb);
     a.appendChild(cardFooter);
-    a.href = `fyrirlestur.html?${lecture.slug}`;
+    a.href = `fyrirlestur.html?slug=${lecture.slug}`;
     card.appendChild(a);
     return card;
   }
