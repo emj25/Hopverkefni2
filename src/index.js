@@ -124,8 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
     e.target.classList.toggle('item--done');
     const sl = new URLSearchParams(window.location.search);
     let slod = sl.toString();
-    slod = slod.substr('slug='.length, slod.length - 1);
-    console.log(slod);
+    slod = slod.substr('slug='.length, slod.length);
     if (window.localStorage.getItem(slod) === 'complete') {
       window.localStorage.setItem(slod, 'incomplete');
     } else {
@@ -145,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let n = 0;
         const sl = new URLSearchParams(window.location.search);
         let slod = sl.toString();
-        slod = slod.substring(0, slod.length - 1);
+        slod = slod.substring('slug='.length, slod.length);
         for (let i = 0; i < data.lectures.length; i += 1) {
           if (slod === (data.lectures[i].slug)) n = i;
         }
