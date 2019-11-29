@@ -124,7 +124,8 @@ document.addEventListener('DOMContentLoaded', () => {
     e.target.classList.toggle('item--done');
     const sl = new URLSearchParams(window.location.search);
     let slod = sl.toString();
-    slod = slod.substr(0, slod.length - 1);
+    slod = slod.substr('slug='.length, slod.length - 1);
+    console.log(slod);
     if (window.localStorage.getItem(slod) === 'complete') {
       window.localStorage.setItem(slod, 'incomplete');
     } else {
