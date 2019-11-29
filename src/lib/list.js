@@ -6,6 +6,8 @@ export default class List {
   }
 
   createCardFooter(lecture) {
+    const cardFooterWrapper = document.createElement('div');
+    cardFooterWrapper.className = 'card__footerwrapper';
     const cardFooter = document.createElement('div');
     cardFooter.className = 'card__footer';
     const category = document.createElement('div');
@@ -17,12 +19,14 @@ export default class List {
     title.appendChild(document.createTextNode(lecture.title));
     cardFooter.appendChild(title);
     const completion = window.localStorage.getItem(lecture.slug);
+    cardFooterWrapper.appendChild(cardFooter);
     if (completion === 'complete') {
-      const check = document.createElement('p');
+      const check = document.createElement('div');
+      check.className = 'card__footer__check';
       check.appendChild(document.createTextNode('✓'));
-      cardFooter.appendChild(check);
+      cardFooterWrapper.appendChild(check);
     }
-    return cardFooter;
+    return cardFooterWrapper;
   }
 
 
