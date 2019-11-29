@@ -33,10 +33,12 @@ export default class List {
     const card = document.createElement('div');
     card.className = `card card--${lecture.category}`;
     card.href = `lecture?slug=${lecture.slug}`;
-    const cardThumb = document.createElement('img');
+    const cardThumb = document.createElement('div');
     cardThumb.className = 'card__main';
-    cardThumb.src = lecture.thumbnail;
-    cardThumb.setAttribute('alt', '');
+    const cardThumbImage = document.createElement('img');
+    cardThumbImage.src = lecture.thumbnail;
+    cardThumbImage.setAttribute('alt', '');
+    cardThumb.appendChild(cardThumbImage);
     const cardFooter = this.createCardFooter(lecture);
     const a = document.createElement('a');
     a.appendChild(cardThumb);
